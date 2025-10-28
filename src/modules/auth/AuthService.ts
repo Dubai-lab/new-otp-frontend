@@ -68,7 +68,13 @@ class AuthService {
 
   getCurrentUser(): User | null {
     const userStr = localStorage.getItem('user');
-    return userStr ? JSON.parse(userStr) : null;
+    if (!userStr) return null;
+    try {
+      return JSON.parse(userStr);
+    } catch (err) {
+      console.error('Failed to parse stored user:', err);
+      return null;
+    }
   }
 
   getToken(): string | null {
