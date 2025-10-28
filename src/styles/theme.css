@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0b0f10;
+  color: #e6f1f0;
+}
+
+button {
+  cursor: pointer;
+}
