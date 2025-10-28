@@ -39,7 +39,7 @@ export interface User {
 
 class AuthService {
   async login(credentials: LoginRequest): Promise<AuthResponse> {
-    const response = await axios.post<AuthResponse>('/auth/login', credentials);
+    const response = await axios.post<AuthResponse>('/api/auth/login', credentials);
     const { accessToken, user } = response.data;
     localStorage.setItem('token', accessToken);
     localStorage.setItem('user', JSON.stringify(user));
@@ -47,17 +47,17 @@ class AuthService {
   }
 
   async register(userData: RegisterRequest): Promise<{ message: string; user: User }> {
-    const response = await axios.post<{ message: string; user: User }>('/auth/register', userData);
+    const response = await axios.post<{ message: string; user: User }>('/api/auth/register', userData);
     return response.data;
   }
 
   async forgotPassword(data: ForgotPasswordRequest): Promise<{ message: string; success: boolean }> {
-    const response = await axios.post<{ message: string; success: boolean }>('/auth/forgot-password', data);
+    const response = await axios.post<{ message: string; success: boolean }>('/api/auth/forgot-password', data);
     return response.data;
   }
 
   async resetPassword(data: ResetPasswordRequest): Promise<{ message: string; success: boolean }> {
-    const response = await axios.post<{ message: string; success: boolean }>('/auth/reset-password', data);
+    const response = await axios.post<{ message: string; success: boolean }>('/api/auth/reset-password', data);
     return response.data;
   }
 

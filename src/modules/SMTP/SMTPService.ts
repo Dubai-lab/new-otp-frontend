@@ -19,20 +19,20 @@ export interface CreateSMTPData {
 }
 
 export const getSMTPConfigs = async (): Promise<SMTPConfig[]> => {
-  const response = await axios.get('/smtp');
+  const response = await axios.get('/api/smtp');
   return response.data;
 };
 
 export const createSMTPConfig = async (data: CreateSMTPData): Promise<SMTPConfig> => {
-  const response = await axios.post('/smtp', data);
+  const response = await axios.post('/api/smtp', data);
   return response.data;
 };
 
 export const updateSMTPConfig = async (id: string, data: Partial<CreateSMTPData>): Promise<SMTPConfig> => {
-  const response = await axios.put(`/smtp/${id}`, data);
+  const response = await axios.put(`/api/smtp/${id}`, data);
   return response.data;
 };
 
 export const deleteSMTPConfig = async (id: string): Promise<void> => {
-  await axios.delete(`/smtp/${id}`);
+  await axios.delete(`/api/smtp/${id}`);
 };

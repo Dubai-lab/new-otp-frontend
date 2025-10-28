@@ -28,16 +28,16 @@ export interface LogStats {
 }
 
 export const getLogs = async (): Promise<SendLog[]> => {
-  const response = await axios.get('/logs');
+  const response = await axios.get('/api/logs');
   return response.data;
 };
 
 export const getLogStats = async (): Promise<LogStats> => {
-  const response = await axios.get('/logs/stats');
+  const response = await axios.get('/api/logs/stats');
   return response.data;
 };
 
 export const getLogById = async (id: string): Promise<SendLog> => {
-  const response = await axios.get(`/logs/${id}`);
+  const response = await axios.get(`/api/logs/${id}`);
   return response.data;
 };

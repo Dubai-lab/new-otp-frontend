@@ -19,15 +19,15 @@ export interface ApiKeyResponse {
 }
 
 export const getApiKeys = async (): Promise<ApiKey[]> => {
-  const response = await axios.get('/apikeys');
+  const response = await axios.get('/api/apikeys');
   return response.data;
 };
 
 export const createApiKey = async (data: CreateApiKeyData): Promise<ApiKeyResponse> => {
-  const response = await axios.post('/apikeys', data);
+  const response = await axios.post('/api/apikeys', data);
   return response.data;
 };
 
 export const deleteApiKey = async (id: string): Promise<void> => {
-  await axios.delete(`/apikeys/${id}`);
+  await axios.delete(`/api/apikeys/${id}`);
 };

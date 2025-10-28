@@ -23,11 +23,11 @@ export interface VerifyOtpResponse {
 }
 
 export const sendTestOtp = async (data: SendOtpRequest): Promise<SendOtpResponse> => {
-  const response = await axios.post('/otp/send', data);
+  const response = await axios.post('/api/otp/send', data);
   return response.data;
 };
 
 export const verifyTestOtp = async (data: VerifyOtpRequest): Promise<VerifyOtpResponse> => {
-  const response = await axios.post('/otp/verify', data);
+  const response = await axios.post('/api/otp/verify', data);
   return response.data;
 };
