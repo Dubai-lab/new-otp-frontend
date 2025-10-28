@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const API_URL = (import.meta.env.VITE_API_URL || "https://modern-caterpillar-dubailab-84e4f794.koyeb.app").replace(/\/$/, '');
+const API_URL = (import.meta.env.VITE_API_URL || "https://otp-saas-backend.onrender.com").replace(/\/$/, '');
 
 const instance = axios.create({
   baseURL: API_URL,
-  withCredentials: true,
+  withCredentials: false,
   headers: {
     "Content-Type": "application/json",
   },
