@@ -39,10 +39,13 @@ export interface User {
 
 class AuthService {
   async login(credentials: LoginRequest): Promise<AuthResponse> {
+    console.log('Attempting login with:', credentials.email);
     const response = await axios.post<AuthResponse>('/api/auth/login', credentials);
+    console.log('Login response:', response.data);
     const { accessToken, user } = response.data;
     localStorage.setItem('token', accessToken);
     localStorage.setItem('user', JSON.stringify(user));
+    console.log('Stored token and user in localStorage');
     return response.data;
   }
 

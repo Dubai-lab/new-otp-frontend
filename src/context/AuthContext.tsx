@@ -45,6 +45,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       const response = await AuthService.login({ email, password });
       setUser(response.user);
+      console.log('Login successful:', response);
+    } catch (error) {
+      console.error('Login failed:', error);
+      throw error;
     } finally {
       setLoading(false);
     }

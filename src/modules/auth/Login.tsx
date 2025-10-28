@@ -16,9 +16,12 @@ export default function Login() {
     setError("");
 
     try {
+      console.log('Submitting login form for:', form.email);
       await login(form.email, form.password);
+      console.log('Login successful, navigating to dashboard');
       navigate("/dashboard");
     } catch (err) {
+      console.error('Login error:', err);
       const error = err as { response?: { data?: { message?: string } } };
       setError(error.response?.data?.message || "Login failed");
     } finally {
