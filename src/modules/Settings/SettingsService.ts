@@ -20,22 +20,22 @@ export interface ChangePasswordData {
 
 class SettingsService {
   async updateProfile(data: UpdateProfileData) {
-    const response = await axios.put('/users/profile', data);
+    const response = await axios.put('/api/users/profile', data);
     return response.data;
   }
 
   async updateSecurity(data: UpdateSecurityData) {
-    const response = await axios.put('/users/security', data);
+    const response = await axios.put('/api/users/security', data);
     return response.data;
   }
 
   async changePassword(data: ChangePasswordData) {
-    const response = await axios.post('/users/change-password', data);
+    const response = await axios.post('/api/users/change-password', data);
     return response.data;
   }
 
   async getCurrentUser() {
-    const response = await axios.get('/users/me');
+    const response = await axios.get('/api/users/me');
     return response.data;
   }
 }
