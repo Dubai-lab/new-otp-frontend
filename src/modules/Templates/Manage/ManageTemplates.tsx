@@ -66,6 +66,9 @@ export default function ManageTemplates() {
               <div className="card-header">
                 <h3>{template.name}</h3>
                 <div className="card-actions">
+                  <Link to={`view/${template.id}`} className="view-btn">
+                    View
+                  </Link>
                   <Link to={`edit/${template.id}`} className="edit-btn">
                     Edit
                   </Link>

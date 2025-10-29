@@ -1,0 +1,144 @@
+.page {
+  color: #e6f1f0;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.header-content h2 {
+  color: #00c853;
+  margin: 0 0 10px 0;
+  font-size: 24px;
+}
+
+.template-info {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  color: #9aa7a6;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn {
+  background: rgba(0, 200, 83, 0.1);
+  color: #00c853;
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  border: 1px solid rgba(0, 200, 83, 0.3);
+  transition: background-color 0.2s;
+}
+
+.edit-btn:hover {
+  background: rgba(0, 200, 83, 0.2);
+}
+
+.back-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e6f1f0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.preview-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.preview-header {
+  margin-bottom: 20px;
+}
+
+.preview-header h3 {
+  color: #00c853;
+  margin: 0 0 8px 0;
+  font-size: 18px;
+}
+
+.preview-header p {
+  color: #9aa7a6;
+  margin: 0;
+  font-size: 14px;
+}
+
+.preview-content {
+  background: #0f1819;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.email-preview {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.email-header {
+  border-bottom: 1px solid #eee;
+}
+
+.email-body {
+  min-height: 200px;
+}
+
+.otp-display {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.email-footer {
+  border-top: 1px solid #eee;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 40px;
+  color: #9aa7a6;
+}
+
+.error {
+  color: #ff6b6b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-actions {
+    justify-content: center;
+  }
+
+  .template-info {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .preview-content {
+    padding: 10px;
+  }
+}
