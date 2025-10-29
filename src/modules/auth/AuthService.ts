@@ -22,12 +22,7 @@ export interface ResetPasswordRequest {
 
 export interface AuthResponse {
   accessToken: string;
-  user: {
-    id: string;
-    email: string;
-    fullName: string;
-    role: 'user' | 'admin';
-  };
+  user: User;
 }
 
 export interface User {
@@ -35,6 +30,14 @@ export interface User {
   email: string;
   fullName: string;
   role: 'user' | 'admin';
+  avatar?: string;
+  twoFactorEnabled: boolean;
+  sessionTimeout: number;
+  loginNotifications: boolean;
+  recoveryEmail?: string;
+  recoveryPhone?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 class AuthService {

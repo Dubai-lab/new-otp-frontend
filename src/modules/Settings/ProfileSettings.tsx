@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
+import SettingsService, { type UpdateProfileData } from './SettingsService';
 import "./Settings.css";
 
 interface UserProfile {
@@ -9,7 +10,7 @@ interface UserProfile {
 }
 
 export default function ProfileSettings() {
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
   const [profile, setProfile] = useState<UserProfile>({
     fullName: '',
     email: '',
@@ -25,7 +26,7 @@ export default function ProfileSettings() {
       setProfile({
         fullName: user.fullName || '',
         email: user.email || '',
-        avatar: '' // Avatar not implemented in backend yet
+        avatar: user.avatar || ''
       });
     }
   }, [user]);
@@ -37,13 +38,16 @@ export default function ProfileSettings() {
     setSuccess(null);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const updateData: UpdateProfileData = {
+        fullName: profile.fullName,
+        avatar: profile.avatar
+      };
 
-      // In real app, this would call an API to update profile
+      const updatedUser = await SettingsService.updateProfile(updateData);
+      updateUser(updatedUser);
       setSuccess('Profile updated successfully!');
-    } catch {
-      setError('Failed to update profile');
+    } catch (err) {
+      setError((err as Error)?.message || 'Failed to update profile');
     } finally {
       setLoading(false);
     }

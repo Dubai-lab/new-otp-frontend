@@ -1,29 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../hooks/useAuth';
+import SettingsService, { type UpdateSecurityData, type ChangePasswordData } from './SettingsService';
 import "./Settings.css";
 
-interface SecuritySettings {
-  currentPassword: string;
-  newPassword: string;
-  confirmPassword: string;
-  twoFactorEnabled: boolean;
-  sessionTimeout: number;
-  loginNotifications: boolean;
-}
-
 export default function SecuritySettings() {
-  const [settings, setSettings] = useState<SecuritySettings>({
+  const { user } = useAuth();
+  const [settings, setSettings] = useState({
     currentPassword: '',
     newPassword: '',
     confirmPassword: '',
     twoFactorEnabled: false,
     sessionTimeout: 30, // minutes
-    loginNotifications: true
+    loginNotifications: true,
+    recoveryEmail: '',
+    recoveryPhone: ''
   });
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showPasswordForm, setShowPasswordForm] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      setSettings(prev => ({
+        ...prev,
+        twoFactorEnabled: user.twoFactorEnabled,
+        sessionTimeout: user.sessionTimeout,
+        loginNotifications: user.loginNotifications,
+        recoveryEmail: user.recoveryEmail || '',
+        recoveryPhone: user.recoveryPhone || ''
+      }));
+    }
+  }, [user]);
 
   const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,9 +52,12 @@ export default function SecuritySettings() {
     setLoading(true);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const changePasswordData: ChangePasswordData = {
+        currentPassword: settings.currentPassword,
+        newPassword: settings.newPassword
+      };
 
+      await SettingsService.changePassword(changePasswordData);
       setSuccess('Password updated successfully!');
       setSettings(prev => ({
         ...prev,
@@ -54,26 +66,28 @@ export default function SecuritySettings() {
         confirmPassword: ''
       }));
       setShowPasswordForm(false);
-    } catch {
-      setError('Failed to update password');
+    } catch (err) {
+      setError((err as Error)?.message || 'Failed to update password');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSecurityUpdate = async (field: keyof SecuritySettings, value: boolean | number) => {
+  const handleSecurityUpdate = async (field: string, value: boolean | number | string) => {
     setLoading(true);
     setError(null);
     setSuccess(null);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500));
+      const updateData: UpdateSecurityData = {
+        [field]: value
+      };
 
+      await SettingsService.updateSecurity(updateData);
       setSettings(prev => ({ ...prev, [field]: value }));
       setSuccess('Security settings updated successfully!');
-    } catch {
-      setError('Failed to update security settings');
+    } catch (err) {
+      setError((err as Error)?.message || 'Failed to update security settings');
     } finally {
       setLoading(false);
     }
