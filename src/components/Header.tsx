@@ -9,7 +9,7 @@ export default function Header() {
       <h2>Welcome, {user?.fullName || 'User'} 👋</h2>
       <div className="header-user">
         <img
-          src={`https://ui-avatars.com/api/?name=${user?.fullName || 'User'}`}
+          src={user?.avatar || `https://ui-avatars.com/api/?name=${user?.fullName || 'User'}`}
           alt="User Avatar"
           className="user-avatar"
         />
