@@ -152,18 +152,33 @@ export default function CreateTemplate() {
                 onChange={(e) => handleStyleChange('header', 'textColor', e.target.value)}
                 title="Text Color"
               />
-              <input
-                type="text"
-                placeholder="Font Size (e.g., 16px)"
+              <select
                 value={formData.styles.header.fontSize}
                 onChange={(e) => handleStyleChange('header', 'fontSize', e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Font Family"
+                title="Font Size"
+              >
+                <option value="12px">12px</option>
+                <option value="14px">14px</option>
+                <option value="16px">16px</option>
+                <option value="18px">18px</option>
+                <option value="20px">20px</option>
+                <option value="24px">24px</option>
+                <option value="28px">28px</option>
+                <option value="32px">32px</option>
+              </select>
+              <select
                 value={formData.styles.header.fontFamily}
                 onChange={(e) => handleStyleChange('header', 'fontFamily', e.target.value)}
-              />
+                title="Font Family"
+              >
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="Helvetica, sans-serif">Helvetica</option>
+                <option value="'Times New Roman', serif">Times New Roman</option>
+                <option value="Georgia, serif">Georgia</option>
+                <option value="'Courier New', monospace">Courier New</option>
+                <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+                <option value="Verdana, sans-serif">Verdana</option>
+              </select>
             </div>
           </div>
 
@@ -183,18 +198,33 @@ export default function CreateTemplate() {
                 onChange={(e) => handleStyleChange('body', 'textColor', e.target.value)}
                 title="Text Color"
               />
-              <input
-                type="text"
-                placeholder="Font Size (e.g., 14px)"
+              <select
                 value={formData.styles.body.fontSize}
                 onChange={(e) => handleStyleChange('body', 'fontSize', e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Font Family"
+                title="Font Size"
+              >
+                <option value="12px">12px</option>
+                <option value="14px">14px</option>
+                <option value="16px">16px</option>
+                <option value="18px">18px</option>
+                <option value="20px">20px</option>
+                <option value="24px">24px</option>
+                <option value="28px">28px</option>
+                <option value="32px">32px</option>
+              </select>
+              <select
                 value={formData.styles.body.fontFamily}
                 onChange={(e) => handleStyleChange('body', 'fontFamily', e.target.value)}
-              />
+                title="Font Family"
+              >
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="Helvetica, sans-serif">Helvetica</option>
+                <option value="'Times New Roman', serif">Times New Roman</option>
+                <option value="Georgia, serif">Georgia</option>
+                <option value="'Courier New', monospace">Courier New</option>
+                <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+                <option value="Verdana, sans-serif">Verdana</option>
+              </select>
             </div>
           </div>
 
@@ -245,18 +275,33 @@ export default function CreateTemplate() {
                 onChange={(e) => handleStyleChange('footer', 'textColor', e.target.value)}
                 title="Text Color"
               />
-              <input
-                type="text"
-                placeholder="Font Size (e.g., 12px)"
+              <select
                 value={formData.styles.footer.fontSize}
                 onChange={(e) => handleStyleChange('footer', 'fontSize', e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Font Family"
+                title="Font Size"
+              >
+                <option value="12px">12px</option>
+                <option value="14px">14px</option>
+                <option value="16px">16px</option>
+                <option value="18px">18px</option>
+                <option value="20px">20px</option>
+                <option value="24px">24px</option>
+                <option value="28px">28px</option>
+                <option value="32px">32px</option>
+              </select>
+              <select
                 value={formData.styles.footer.fontFamily}
                 onChange={(e) => handleStyleChange('footer', 'fontFamily', e.target.value)}
-              />
+                title="Font Family"
+              >
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="Helvetica, sans-serif">Helvetica</option>
+                <option value="'Times New Roman', serif">Times New Roman</option>
+                <option value="Georgia, serif">Georgia</option>
+                <option value="'Courier New', monospace">Courier New</option>
+                <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+                <option value="Verdana, sans-serif">Verdana</option>
+              </select>
             </div>
           </div>
         </div>
