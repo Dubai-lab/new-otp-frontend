@@ -17,6 +17,7 @@ import LandingPage from "./modules/Landing/LandingPage";
 
 import CreateTemplate from "./modules/Templates/create/CreateTemplate";
 import EditTemplate from "./modules/Templates/Edit/EditTemplate";
+import ViewTemplate from "./modules/Templates/View/ViewTemplate";
 
 export default function App() {
   return (
@@ -44,6 +45,7 @@ export default function App() {
             <Route path="templates" element={<ManageTemplates />} />
             <Route path="templates/create" element={<CreateTemplate />} />
             <Route path="templates/edit/:id" element={<EditTemplate />} />
+            <Route path="templates/view/:id" element={<ViewTemplate />} />
             <Route path="apikeys" element={<ApiKeys />} />
             <Route path="smtp" element={<SMTP />} />
             <Route path="logs" element={<LogsList />} />
