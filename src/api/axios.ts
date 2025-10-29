@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = (import.meta.env.VITE_API_URL || "https://otp-saas-backend.onrender.com").replace(/\/$/, '');
+const API_URL = (import.meta.env.VITE_API_URL || "https://freeotpsaas.com").replace(/\/$/, '');
 
 const instance = axios.create({
   baseURL: API_URL,
