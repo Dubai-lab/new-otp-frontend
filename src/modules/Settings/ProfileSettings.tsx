@@ -46,6 +46,9 @@ export default function ProfileSettings() {
       const updatedUser = await SettingsService.updateProfile(updateData);
       updateUser(updatedUser);
       setSuccess('Profile updated successfully!');
+
+      // Update localStorage with the new user data
+      localStorage.setItem('user', JSON.stringify(updatedUser));
     } catch (err) {
       setError((err as Error)?.message || 'Failed to update profile');
     } finally {
