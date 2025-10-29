@@ -9,6 +9,7 @@ export interface RegisterRequest {
   fullName: string;
   email: string;
   password: string;
+  planName?: string;
 }
 
 export interface ForgotPasswordRequest {

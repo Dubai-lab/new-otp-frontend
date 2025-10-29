@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { PricingSection } from './PricingSection';
 import './LandingPage.css';
 
 export default function LandingPage() {
@@ -313,6 +314,9 @@ Content-Type: application/json
           </div>
         </div>
       </section>
+
+      {/* Pricing Section */}
+      <PricingSection />
 
       {/* Stats Section */}
       <section className="stats">

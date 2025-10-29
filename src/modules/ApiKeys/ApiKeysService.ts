@@ -24,8 +24,16 @@ export const getApiKeys = async (): Promise<ApiKey[]> => {
 };
 
 export const createApiKey = async (data: CreateApiKeyData): Promise<ApiKeyResponse> => {
-  const response = await axios.post('/api/apikeys', data);
-  return response.data;
+  try {
+    const response = await axios.post('/api/apikeys', data);
+    return response.data;
+  } catch (error: unknown) {
+    const axiosError = error as { response?: { status?: number; data?: { message?: string } } };
+    if (axiosError.response?.status === 400 && axiosError.response?.data?.message?.includes('API key limit')) {
+      throw new Error('API key limit reached. Upgrade your plan to create more keys.');
+    }
+    throw error;
+  }
 };
 
 export const deleteApiKey = async (id: string): Promise<void> => {

@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import "./Auth.css";
 
 export default function Register() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { register } = useAuth();
+  const selectedPlan = location.state?.selectedPlan;
   const [form, setForm] = useState({ fullName: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -18,7 +20,7 @@ export default function Register() {
     setSuccess("");
 
     try {
-      await register(form.fullName, form.email, form.password);
+      await register(form.fullName, form.email, form.password, selectedPlan);
       setSuccess("Registration successful! Redirecting to login...");
       setTimeout(() => navigate("/login"), 2000);
     } catch (err) {

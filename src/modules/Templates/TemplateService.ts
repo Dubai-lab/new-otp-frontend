@@ -48,8 +48,16 @@ export const getTemplates = async (): Promise<Template[]> => {
 };
 
 export const createTemplate = async (data: Omit<Template, 'id' | 'createdAt'>): Promise<Template> => {
-  const response = await axios.post('/api/templates', data);
-  return response.data;
+  try {
+    const response = await axios.post('/api/templates', data);
+    return response.data;
+  } catch (error: unknown) {
+    const axiosError = error as { response?: { status?: number; data?: { message?: string } } };
+    if (axiosError.response?.status === 400 && axiosError.response?.data?.message?.includes('Template limit')) {
+      throw new Error('Template limit reached. Upgrade your plan to create more templates.');
+    }
+    throw error;
+  }
 };
 
 export const updateTemplate = async (id: string, data: Partial<Omit<Template, 'id' | 'createdAt'>>): Promise<Template> => {
