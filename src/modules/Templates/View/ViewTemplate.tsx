@@ -126,10 +126,10 @@ export default function ViewTemplate() {
           </div>
         </div>
         <div className="header-actions">
-          <Link to={`../edit/${template.id}`} className="edit-btn">
+          <Link to={`/dashboard/templates/edit/${template.id}`} className="edit-btn">
             Edit Template
           </Link>
-          <button onClick={() => navigate('../')} className="back-btn">
+          <button onClick={() => navigate('/dashboard/templates')} className="back-btn">
             Back to Templates
           </button>
         </div>
