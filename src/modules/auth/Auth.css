@@ -49,18 +49,20 @@
 }
 
 .form-group label {
-  font-weight: 600;
-  color: #333;
+  font-weight: 700;
+  color: #000000 !important;
   font-size: 0.95rem;
+  margin-bottom: 4px;
 }
 
 .form-group input {
   padding: 14px 16px;
-  border: 2px solid #e1e5e9;
+  border: 2px solid #00c853;
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
-  color: #333;
+  color: #333 !important;
+  background-color: #ffffff !important;
 }
 
 .form-group input:focus {
