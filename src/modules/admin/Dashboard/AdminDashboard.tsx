@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../../api/axios';
 import Loader from '../../../components/UI/Loader';
 import { useAuth } from '../../../context/AuthContext';
+import '../../../styles/admin.css';
 
 interface SystemStats {
   users: number;

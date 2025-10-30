@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from '../../../api/axios';
 import Loader from '../../../components/UI/Loader';
 import toast from 'react-hot-toast';
+import '../../../styles/admin.css';
 
 interface User {
   id: string;
