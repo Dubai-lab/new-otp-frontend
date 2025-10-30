@@ -58,7 +58,7 @@ export default function Home() {
         <div className="stat-card">
           <div className="stat-icon">📧</div>
           <div className="stat-content">
-            <h3>{stats?.sentToday || 0}</h3>
+            <h3>{stats?.sentToday || 0} / {stats?.otpLimit || 100}</h3>
             <p>OTPs Sent Today</p>
           </div>
         </div>

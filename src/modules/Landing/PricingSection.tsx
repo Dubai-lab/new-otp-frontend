@@ -1,89 +1,82 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getAvailablePlans, type UserPlan } from '../../modules/Settings/PlanService';
+import { useAuth } from '../../context/AuthContext';
 import './LandingPage.css';
 
-interface Plan {
-  id: string;
-  name: string;
-  price: number;
-  currency: string;
-  period: string;
-  smtpLimit: number;
-  templateLimit: number;
-  apiKeyLimit: number;
+interface Plan extends UserPlan {
   features: string[];
   popular?: boolean;
 }
 
-const plans: Plan[] = [
-  {
-    id: 'starter',
-    name: 'Starter',
-    price: 0,
-    currency: 'USD',
-    period: 'month',
-    smtpLimit: 100,
-    templateLimit: 5,
-    apiKeyLimit: 2,
-    features: [
-      '100 SMTP requests/month',
-      '5 email templates',
-      '2 API keys',
-      'Basic analytics',
-      'Email support'
-    ]
-  },
-  {
-    id: 'professional',
-    name: 'Professional',
-    price: 29,
-    currency: 'USD',
-    period: 'month',
-    smtpLimit: 5000,
-    templateLimit: 50,
-    apiKeyLimit: 10,
-    features: [
-      '5,000 SMTP requests/month',
-      '50 email templates',
-      '10 API keys',
-      'Advanced analytics',
-      'Priority support',
-      'Custom templates',
-      'Webhook notifications'
-    ],
-    popular: true
-  },
-  {
-    id: 'enterprise',
-    name: 'Enterprise',
-    price: 99,
-    currency: 'USD',
-    period: 'month',
-    smtpLimit: 25000,
-    templateLimit: 200,
-    apiKeyLimit: 50,
-    features: [
-      '25,000 SMTP requests/month',
-      '200 email templates',
-      '50 API keys',
-      'Real-time analytics',
-      '24/7 phone support',
-      'Custom integrations',
-      'Dedicated account manager',
-      'SLA guarantee'
-    ]
-  }
-];
-
 export const PricingSection: React.FC = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [billingPeriod, setBillingPeriod] = useState<'month' | 'year'>('month');
+  const [plans, setPlans] = useState<Plan[]>([]);
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        const availablePlans = await getAvailablePlans();
+        const plansWithFeatures: Plan[] = availablePlans.map(plan => ({
+          ...plan,
+          features: getFeaturesForPlan(plan),
+          popular: plan.name === 'Professional'
+        }));
+        setPlans(plansWithFeatures);
+      } catch (error) {
+        console.error('Failed to fetch plans:', error);
+      }
+    };
+
+    fetchPlans();
+  }, []);
+
+  const getFeaturesForPlan = (plan: UserPlan): string[] => {
+    if (plan.price === 0) {
+      return [
+        `${plan.smtpLimit} SMTP requests/month`,
+        `${plan.templateLimit} email templates`,
+        `${plan.apiKeyLimit} API keys`,
+        'Basic analytics',
+        'Email support'
+      ];
+    } else if (plan.price < 50) {
+      return [
+        `${plan.smtpLimit.toLocaleString()} SMTP requests/month`,
+        `${plan.templateLimit} email templates`,
+        `${plan.apiKeyLimit} API keys`,
+        'Advanced analytics',
+        'Priority support',
+        'Custom templates',
+        'Webhook notifications'
+      ];
+    } else {
+      return [
+        `${plan.smtpLimit.toLocaleString()} SMTP requests/month`,
+        `${plan.templateLimit} email templates`,
+        `${plan.apiKeyLimit} API keys`,
+        'Real-time analytics',
+        '24/7 phone support',
+        'Custom integrations',
+        'Dedicated account manager',
+        'SLA guarantee'
+      ];
+    }
+  };
 
   const handlePlanSelect = (plan: Plan) => {
-    if (plan.price === 0) {
-      navigate('/register');
+    if (user) {
+      // If user is logged in, upgrade their plan
+      navigate('/settings', { state: { upgradePlan: plan.id } });
     } else {
-      navigate('/register', { state: { selectedPlan: plan.id } });
+      // If not logged in, go to register with plan selection
+      if (plan.price === 0) {
+        navigate('/register');
+      } else {
+        navigate('/register', { state: { selectedPlan: plan.id } });
+      }
     }
   };
 

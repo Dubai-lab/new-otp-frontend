@@ -1,10 +1,24 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "../styles/dashboard.css";
 
 export default function Sidebar() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleUpgrade = () => {
+    navigate('/pricing');
+  };
+
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">OTP SaaS</div>
+      <div className="sidebar-plan">
+        <div className="plan-name">Plan: {user?.plan?.name || 'Free'}</div>
+        <button className="upgrade-button" onClick={handleUpgrade}>
+          Upgrade
+        </button>
+      </div>
       <nav className="sidebar-nav">
         <NavLink to="">Dashboard</NavLink>
         <NavLink to="templates">Templates</NavLink>

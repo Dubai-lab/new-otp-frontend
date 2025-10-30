@@ -25,6 +25,7 @@ export interface LogStats {
   apiKeyCount: number;
   sentToday: number;
   failedCount: number;
+  otpLimit: number;
 }
 
 export const getLogs = async (): Promise<SendLog[]> => {

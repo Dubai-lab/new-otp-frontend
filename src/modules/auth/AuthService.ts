@@ -39,6 +39,16 @@ export interface User {
   recoveryPhone?: string;
   createdAt: string;
   updatedAt: string;
+  plan?: {
+    id: string;
+    name: string;
+    otpLimit: number;
+    smtpLimit: number;
+    templateLimit: number;
+    apiKeyLimit: number;
+    price: number;
+    currency: string;
+  };
 }
 
 class AuthService {
@@ -47,6 +57,15 @@ class AuthService {
     const response = await axios.post<AuthResponse>('/api/auth/login', credentials);
     console.log('Login response:', response.data);
     const { accessToken, user } = response.data;
+
+    // Fetch user plan after login
+    try {
+      const planResponse = await axios.get('/api/plans/current');
+      user.plan = planResponse.data;
+    } catch (error) {
+      console.error('Failed to fetch user plan:', error);
+    }
+
     localStorage.setItem('token', accessToken);
     localStorage.setItem('user', JSON.stringify(user));
     console.log('Stored token and user in localStorage');
@@ -55,6 +74,15 @@ class AuthService {
 
   async register(userData: RegisterRequest): Promise<{ message: string; user: User }> {
     const response = await axios.post<{ message: string; user: User }>('/api/auth/register', userData);
+
+    // After successful registration, fetch the user's plan (should be the default Free plan)
+    try {
+      const planResponse = await axios.get('/api/plans/current');
+      response.data.user.plan = planResponse.data;
+    } catch (error) {
+      console.error('Failed to fetch user plan after registration:', error);
+    }
+
     return response.data;
   }
 
