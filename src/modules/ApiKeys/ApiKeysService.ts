@@ -29,8 +29,8 @@ export const createApiKey = async (data: CreateApiKeyData): Promise<ApiKeyRespon
     return response.data;
   } catch (error: unknown) {
     const axiosError = error as { response?: { status?: number; data?: { message?: string } } };
-    if (axiosError.response?.status === 400 && axiosError.response?.data?.message?.includes('API key limit')) {
-      throw new Error('API key limit reached. Upgrade your plan to create more keys.');
+    if (axiosError.response?.status === 400) {
+      throw new Error(axiosError.response?.data?.message || 'Failed to generate API key');
     }
     throw error;
   }

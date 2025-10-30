@@ -54,8 +54,9 @@ export default function ApiKeys() {
       setShowCreateForm(false);
       setFormData({ smtpId: '', label: '' });
       await fetchApiKeys();
-    } catch {
-      setError('Failed to generate API key');
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      setError(error.message || 'Failed to generate API key');
     } finally {
       setGenerating(false);
     }
