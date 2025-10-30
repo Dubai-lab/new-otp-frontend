@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from '../../../api/axios';
 import Loader from '../../../components/UI/Loader';
 
@@ -36,6 +37,12 @@ export default function AdminDashboard() {
   return (
     <div className="admin-dashboard">
       <h1>Admin Dashboard</h1>
+
+      <div className="admin-actions">
+        <Link to="/admin/plans" className="admin-action-btn">
+          Manage Plans
+        </Link>
+      </div>
 
       <div className="stats-grid">
         <div className="stat-card">
