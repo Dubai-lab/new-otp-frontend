@@ -17,6 +17,8 @@ interface SystemStats {
 export default function AdminDashboard() {
   const [stats, setStats] = useState<SystemStats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [assigningPlans, setAssigningPlans] = useState(false);
+  const [assignMessage, setAssignMessage] = useState<string | null>(null);
   const { logout } = useAuth();
   const navigate = useNavigate();
 
@@ -32,6 +34,23 @@ export default function AdminDashboard() {
       console.error('Failed to fetch stats:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleAssignDefaultPlans = async () => {
+    setAssigningPlans(true);
+    setAssignMessage(null);
+    try {
+      const response = await axios.post('/api/admin/assign-default-plans');
+      setAssignMessage(response.data.message || 'Default plans assigned successfully!');
+      // Refresh stats to show updated data
+      await fetchStats();
+    } catch (error) {
+      console.error('Failed to assign default plans:', error);
+      const axiosError = error as { response?: { data?: { message?: string } } };
+      setAssignMessage(axiosError.response?.data?.message || 'Failed to assign default plans');
+    } finally {
+      setAssigningPlans(false);
     }
   };
 
@@ -62,6 +81,29 @@ export default function AdminDashboard() {
             <h3>Manage Users</h3>
             <p>View, edit, and manage user accounts</p>
           </Link>
+        </div>
+      </div>
+
+      {/* Database Maintenance Section */}
+      <div className="maintenance-section">
+        <h2>Database Maintenance</h2>
+        <div className="maintenance-actions">
+          <div className="maintenance-card">
+            <h3>Fix User Plans</h3>
+            <p>Assign default plans to users with invalid plan assignments</p>
+            <button
+              onClick={handleAssignDefaultPlans}
+              disabled={assigningPlans}
+              className={`maintenance-btn ${assigningPlans ? 'loading' : ''}`}
+            >
+              {assigningPlans ? 'Assigning...' : 'Assign Default Plans'}
+            </button>
+            {assignMessage && (
+              <p className={`maintenance-message ${assignMessage.includes('Failed') ? 'error' : 'success'}`}>
+                {assignMessage}
+              </p>
+            )}
+          </div>
         </div>
       </div>
 
