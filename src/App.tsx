@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import UserDashboardLayout from "./layouts/UserDashboardLayout";
+import AdminRoute from "./router/AdminRoute";
 
 import Home from "./modules/Dashboard/Home";
 import ManageTemplates from "./modules/Templates/Manage/ManageTemplates";
@@ -14,6 +15,8 @@ import Register from "./modules/auth/Register";
 import ForgotPass from "./modules/auth/ForgotPass";
 import ProtectedRoute from "./router/ProtectedRoute";
 import LandingPage from "./modules/Landing/LandingPage";
+import AdminDashboard from "./modules/admin/Dashboard/AdminDashboard";
+import PlansManagement from "./modules/admin/Manage/PlansManagement";
 
 import CreateTemplate from "./modules/Templates/create/CreateTemplate";
 import EditTemplate from "./modules/Templates/Edit/EditTemplate";
@@ -32,7 +35,7 @@ export default function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPass />} />
 
-          {/* Protected Dashboard */}
+          {/* Protected User Dashboard */}
           <Route
             path="/dashboard"
             element={
@@ -53,6 +56,24 @@ export default function App() {
 
             <Route path="settings" element={<Settings />} />
           </Route>
+
+          {/* Admin Routes */}
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/plans"
+            element={
+              <AdminRoute>
+                <PlansManagement />
+              </AdminRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

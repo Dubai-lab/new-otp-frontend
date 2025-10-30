@@ -17,9 +17,15 @@ export default function Login() {
 
     try {
       console.log('Submitting login form for:', form.email);
-      await login(form.email, form.password);
+      const response = await login(form.email, form.password);
       console.log('Login successful, navigating to dashboard');
-      navigate("/dashboard");
+
+      // Check if user is admin and redirect accordingly
+      if (response.user.role === 'admin') {
+        navigate("/admin");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (err) {
       console.error('Login error:', err);
       const error = err as { response?: { data?: { message?: string } } };

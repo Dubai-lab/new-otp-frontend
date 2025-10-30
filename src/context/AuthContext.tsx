@@ -4,7 +4,7 @@ import AuthService, { type User } from '../modules/auth/AuthService';
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<{ user: User }>;
   register: (fullName: string, email: string, password: string, planName?: string) => Promise<void>;
   logout: () => void;
   updateUser: (user: User) => void;
@@ -47,6 +47,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const response = await AuthService.login({ email, password });
       setUser(response.user);
       console.log('Login successful:', response);
+      return { user: response.user };
     } catch (error) {
       console.error('Login failed:', error);
       throw error;
