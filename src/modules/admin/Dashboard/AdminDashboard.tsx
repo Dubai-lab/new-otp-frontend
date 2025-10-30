@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from '../../../api/axios';
 import Loader from '../../../components/UI/Loader';
+import { useAuth } from '../../../context/AuthContext';
 
 interface SystemStats {
   users: number;
@@ -16,6 +17,8 @@ interface SystemStats {
 export default function AdminDashboard() {
   const [stats, setStats] = useState<SystemStats | null>(null);
   const [loading, setLoading] = useState(true);
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchStats();
@@ -32,16 +35,34 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   if (loading) return <Loader />;
 
   return (
     <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
+      <div className="admin-header">
+        <h1>Admin Dashboard</h1>
+        <button onClick={handleLogout} className="logout-btn">
+          Logout
+        </button>
+      </div>
 
-      <div className="admin-actions">
-        <Link to="/admin/plans" className="admin-action-btn">
-          Manage Plans
-        </Link>
+      <div className="quick-actions">
+        <h2>Quick Actions</h2>
+        <div className="actions-grid">
+          <Link to="/admin/plans" className="action-card">
+            <h3>Manage Plans</h3>
+            <p>Create, update, and delete subscription plans</p>
+          </Link>
+          <Link to="/admin/users" className="action-card">
+            <h3>Manage Users</h3>
+            <p>View, edit, and manage user accounts</p>
+          </Link>
+        </div>
       </div>
 
       <div className="stats-grid">

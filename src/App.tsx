@@ -17,6 +17,7 @@ import ProtectedRoute from "./router/ProtectedRoute";
 import LandingPage from "./modules/Landing/LandingPage";
 import AdminDashboard from "./modules/admin/Dashboard/AdminDashboard";
 import PlansManagement from "./modules/admin/Manage/PlansManagement";
+import UsersManagement from "./modules/admin/Manage/UsersManagement";
 
 import CreateTemplate from "./modules/Templates/create/CreateTemplate";
 import EditTemplate from "./modules/Templates/Edit/EditTemplate";
@@ -71,6 +72,14 @@ export default function App() {
             element={
               <AdminRoute>
                 <PlansManagement />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <AdminRoute>
+                <UsersManagement />
               </AdminRoute>
             }
           />
