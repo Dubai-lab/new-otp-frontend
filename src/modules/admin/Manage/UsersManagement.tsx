@@ -8,7 +8,9 @@ interface User {
   fullName: string;
   email: string;
   role: string;
-  planName: string;
+  plan?: {
+    name: string;
+  };
   createdAt: string;
 }
 
@@ -91,7 +93,7 @@ export default function UsersManagement() {
                     <option value="admin">Admin</option>
                   </select>
                 </td>
-                <td>{user.planName || 'No Plan'}</td>
+                <td>{user.plan?.name || 'No Plan'}</td>
                 <td>{new Date(user.createdAt).toLocaleDateString()}</td>
                 <td>
                   <button
